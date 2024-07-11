@@ -8,6 +8,13 @@
 import SwiftUI
 import MapKit
 
+//画面で選択したマップの種類を示す列挙型
+enum MapType{
+    case standard //標準
+    case stellite //衛生写真
+    case hybrid //衛生写真＋交通機関ラベル
+}
+
 struct MapView: View {
     //検索キーワード
     let searchKey: String
@@ -15,6 +22,8 @@ struct MapView: View {
     @State var targetCoordinate = CLLocationCoordinate2D()
     //表示するマップの位置
     @State var cameraPosition: MapCameraPosition = .automatic
+    //マップ種類　デフォルトは標準
+    @State var displayMapType: MapType = .standard
     
     var body: some View {
         Map(position: $cameraPosition){
