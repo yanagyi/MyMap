@@ -30,6 +30,27 @@ struct ContentView: View {
             ZStack(alignment: .bottomTrailing){
                 //マップ表示
                 MapView(searchKey: displaySearchKey)
+                
+                //マップの種類切り替えボタン
+                Button{
+                    //標準
+                    if displayMapType == .standard{
+                        displayMapType = .stellite
+                    }else if displayMapType == .stellite{
+                        displayMapType = .hybrid
+                    }else{
+                        displayMapType = .standard
+                    }
+                }label: {
+                    //マップアイコンの表示
+                    Image(systemName: "map")
+                        .resizable()
+                        .frame(width: 35.0,height: 35.0)
+                }
+                //右の余白20空ける
+                .padding(.trailing,20.0)
+                //下の余白30空ける
+                .padding(.bottom,30.0)
             }
         }
     }
