@@ -18,18 +18,31 @@ enum MapType{
 struct MapView: View {
     //検索キーワード
     let searchKey: String
+    //マップ種類
+    let mapType: MapType
     //キーワードから取得した緯度経度
     @State var targetCoordinate = CLLocationCoordinate2D()
     //表示するマップの位置
     @State var cameraPosition: MapCameraPosition = .automatic
-    //マップ種類　デフォルトは標準
-    @State var displayMapType: MapType = .standard
+    //表示するマップのスタイル
+    var mapStyle: MapStyle{
+        switch mapType{
+        case .standard:
+            return MapStyle.standard()
+        case .stellite:
+            return MapStyle.imagery()
+        case.hybrid:
+            return MapStyle.hybrid()
+        }
+    }
     
     var body: some View {
         Map(position: $cameraPosition){
             //マップにピンを表示
             Marker(searchKey, coordinate: targetCoordinate)
         }
+        //マップのスタイルを指定
+        .mapStyle(mapStyle)
         //検索キーワードの変更を検知
         .onChange(of: searchKey,initial: true) { oldValue, newValue
             in
@@ -67,5 +80,5 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView(searchKey: "東京駅")
+    MapView(searchKey: "東京", mapType: .standard)
 }

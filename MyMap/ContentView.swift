@@ -12,6 +12,8 @@ struct ContentView: View {
     @State var inputText: String = ""
     //検索キーワードを保持する状態変数,初期値は"東京駅"
     @State var displaySearchKey: String = "東京駅"
+    //マップ種類　デフォルトは標準
+    @State var displayMapType: MapType = .standard
     
     var body: some View {
         VStack{
@@ -29,7 +31,7 @@ struct ContentView: View {
             //奥から手前にレイアウト（右下標準で配置する）
             ZStack(alignment: .bottomTrailing){
                 //マップ表示
-                MapView(searchKey: displaySearchKey)
+                MapView(searchKey: displaySearchKey, mapType: displayMapType)
                 
                 //マップの種類切り替えボタン
                 Button{
